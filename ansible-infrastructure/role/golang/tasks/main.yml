@@ -1,0 +1,6 @@
+---
+- name: Installer Go (Golang) depuis les dépôts
+  ansible.builtin.apt:
+    name: golang
+    state: present
+    update_cache: yes
