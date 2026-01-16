@@ -1,0 +1,29 @@
+---
+- name: Installer Apache2, PHP-FPM et MariaDB pour GLPI
+  ansible.builtin.apt:
+    name:
+      - apache2
+      - php8.4-fpm
+      - mariadb-server
+    state: present
+    update_cache: yes
+
+- name: Installer extensions PHP recommandées pour GLPI
+  ansible.builtin.apt:
+    name:
+      - php8.4-common
+      - php8.4-curl
+      - php8.4-gd
+      - php8.4-intl
+      - php8.4-mysql
+      - php8.4-zip
+      - php8.4-bcmath
+      - php8.4-mbstring
+      - php8.4-xml
+      - php8.4-bz2
+    state: present
+
+- name: Activer modules Apache nécessaires
+  ansible.builtin.command: a2enmod proxy_fcgi setenvif rewrite
+  changed_when: true
+  notify: Restart Apache
