@@ -1,1 +1,16 @@
+---
+- name: Stack GLPI + OCS + Go + TapirX
+  hosts: glpi
+  become: true
 
+  pre_tasks:
+    - name: Vérifier que le système est de famille Debian
+      ansible.builtin.assert:
+        that: ansible_facts['os_family'] == 'Debian'
+        fail_msg: "Ce playbook est prévu pour Debian/Ubuntu."
+
+  roles:
+    - role: glpi
+    - role: ocs
+    - role: golang
+    - role: tapirx
