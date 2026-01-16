@@ -1,0 +1,35 @@
+---
+- name: Créer répertoires GLPI
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+  loop:
+    - /var/www/glpi
+    - /etc/glpi
+    - /var/lib/glpi
+    - /var/log/glpi
+
+- name: Télécharger GLPI
+  ansible.builtin.get_url:
+    url: "https://github.com/glpi-project/glpi/releases/download/{{ glpi_version }}/glpi-{{ glpi_version }}.tgz"
+    dest: /tmp/glpi.tgz
+    mode: "0644"
+
+- name: Décompresser GLPI dans /var/www/glpi
+  ansible.builtin.unarchive:
+    src: /tmp/glpi.tgz
+    dest: /var/www/glpi
+    remote_src: yes
+    extra_opts: [ "--strip-components=1" ]
+
+- name: Appliquer les droits www-data sur /var/www/glpi
+  ansible.builtin.file:
+    path: /var/www/glpi
+    state: directory
+    recurse: true
+    owner: www-data
+    group: www-data
+    mode: "0755"
