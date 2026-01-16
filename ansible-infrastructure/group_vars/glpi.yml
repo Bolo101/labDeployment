@@ -9,5 +9,5 @@ glpi_config_dir: "/etc/glpi"
 glpi_var_dir: "/var/lib/glpi"
 glpi_log_dir: "/var/log/glpi"
 
-glpi_server_name: "support.it-connectlab.fr"
+glpi_server_name: "glpi.local"
 php_fpm_socket: "/run/php/php8.4-fpm.sock"
