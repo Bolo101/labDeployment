@@ -1,0 +1,20 @@
+---
+- name: Installer dépendances Python pour gérer MariaDB
+  ansible.builtin.apt:
+    name: python3-pymysql
+    state: present
+
+- name: Créer la base de données GLPI
+  community.mysql.mysql_db:
+    name: "{{ glpi_db_name }}"
+    state: present
+    encoding: utf8mb4
+    collation: utf8mb4_unicode_ci
+
+- name: Créer l’utilisateur SQL GLPI
+  community.mysql.mysql_user:
+    name: "{{ glpi_db_user }}"
+    password: "{{ glpi_db_password }}"
+    host: "localhost"
+    priv: "{{ glpi_db_name }}.*:ALL"
+    state: present
