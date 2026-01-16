@@ -11,3 +11,14 @@ glpi_log_dir: "/var/log/glpi"
 
 glpi_server_name: "glpi.local"
 php_fpm_socket: "/run/php/php8.4-fpm.sock"
+
+ocs_db_name: "ocsdb"
+ocs_db_user: "ocs_adm"
+ocs_db_password: "StrongPassword123"
+
+ocs_server_url: "http://localhost/ocsreports"
+
+tapirx_repo: "https://github.com/virtalabs/tapirx.git"
+tapirx_dir: "/opt/tapirx"
+tapirx_user: "tapirx"
+tapirx_binary: "/usr/local/bin/tapirx"
