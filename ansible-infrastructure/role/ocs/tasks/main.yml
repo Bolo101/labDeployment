@@ -1,0 +1,9 @@
+---
+- name: Installer OCS Inventory Server
+  ansible.builtin.import_tasks: install.yml
+
+- name: Préparer la base de données OCS
+  ansible.builtin.import_tasks: db.yml
+
+- name: Configurer OCS Inventory Server
+  ansible.builtin.import_tasks: config.yml
