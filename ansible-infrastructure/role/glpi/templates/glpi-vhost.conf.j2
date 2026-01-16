@@ -1,0 +1,22 @@
+<VirtualHost *:80>
+    ServerName {{ glpi_server_name }}
+
+    DocumentRoot /var/www/glpi/public
+
+    <Directory /var/www/glpi/public>
+        Require all granted
+        AllowOverride All
+
+        RewriteEngine On
+        # Rediriger toutes les requêtes vers le routeur de GLPI sauf si le fichier existe
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteRule ^(.*)$ index.php [QSA,L]
+    </Directory>
+
+    <FilesMatch \.php$>
+        SetHandler "proxy:unix:/run/php/php8.4-fpm.sock|fcgi://localhost/"
+    </FilesMatch>
+
+    ErrorLog /var/log/apache2/glpi_error.log
+    CustomLog /var/log/apache2/glpi_access.log combined
+</VirtualHost>
