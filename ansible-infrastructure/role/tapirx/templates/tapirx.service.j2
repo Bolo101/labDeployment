@@ -1,0 +1,15 @@
+[Unit]
+Description=TapirX service
+After=network.target
+
+[Service]
+Type=simple
+User={{ tapirx_user }}
+Group={{ tapirx_user }}
+ExecStart={{ tapirx_binary }}
+Restart=on-failure
+RestartSec=5s
+WorkingDirectory={{ tapirx_dir }}
+
+[Install]
+WantedBy=multi-user.target
