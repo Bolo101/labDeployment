@@ -1,5 +1,5 @@
 ---
-- name: Créer répertoires GLPI
+- name: Créer les répertoires GLPI de base
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -8,9 +8,6 @@
     mode: "0755"
   loop:
     - /var/www/glpi
-    - /etc/glpi
-    - /var/lib/glpi
-    - /var/log/glpi
 
 - name: Télécharger GLPI
   ansible.builtin.get_url:
