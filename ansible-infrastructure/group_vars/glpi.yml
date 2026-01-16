@@ -1,0 +1,13 @@
+glpi_version: "11.0.4"
+
+glpi_db_name: "db25_glpi"
+glpi_db_user: "glpi_adm"
+glpi_db_password: "StrongPassword123"
+
+glpi_root_dir: "/var/www/glpi"
+glpi_config_dir: "/etc/glpi"
+glpi_var_dir: "/var/lib/glpi"
+glpi_log_dir: "/var/log/glpi"
+
+glpi_server_name: "support.it-connectlab.fr"
+php_fpm_socket: "/run/php/php8.4-fpm.sock"
