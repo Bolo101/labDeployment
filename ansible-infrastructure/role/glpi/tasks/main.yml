@@ -1,0 +1,12 @@
+---
+- name: Installer les paquets nécessaires à GLPI
+  ansible.builtin.import_tasks: install_pkgs.yml
+
+- name: Préparer la base de données GLPI
+  ansible.builtin.import_tasks: db.yml
+
+- name: Installer l’application GLPI
+  ansible.builtin.import_tasks: app.yml
+
+- name: Configurer Apache pour GLPI
+  ansible.builtin.import_tasks: vhost.yml
