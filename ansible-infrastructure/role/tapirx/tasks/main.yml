@@ -1,0 +1,47 @@
+---
+- name: Créer l’utilisateur système tapirx
+  ansible.builtin.user:
+    name: "{{ tapirx_user }}"
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+
+- name: Cloner le dépôt TapirX
+  ansible.builtin.git:
+    repo: "{{ tapirx_repo }}"
+    dest: "{{ tapirx_dir }}"
+    version: main
+    force: false
+
+- name: Compiler TapirX
+  ansible.builtin.command: >
+    go build -o {{ tapirx_binary }}
+  args:
+    chdir: "{{ tapirx_dir }}"
+  environment:
+    GOPATH: "/root/go"
+  notify: Restart tapirx
+
+- name: Définir les permissions sur le binaire TapirX
+  ansible.builtin.file:
+    path: "{{ tapirx_binary }}"
+    owner: "{{ tapirx_user }}"
+    group: "{{ tapirx_user }}"
+    mode: "0755"
+
+- name: Déployer le service systemd TapirX
+  ansible.builtin.template:
+    src: tapirx.service.j2
+    dest: /etc/systemd/system/tapirx.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Daemon reload
+    - Restart tapirx
+
+- name: Activer et démarrer TapirX
+  ansible.builtin.service:
+    name: tapirx
+    state: started
+    enabled: true
