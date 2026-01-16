@@ -1,0 +1,20 @@
+---
+- name: Installer dépendances Python pour MariaDB
+  ansible.builtin.apt:
+    name: python3-pymysql
+    state: present
+
+- name: Créer la base de données OCS
+  community.mysql.mysql_db:
+    name: "{{ ocs_db_name }}"
+    state: present
+    encoding: utf8mb4
+    collation: utf8mb4_unicode_ci
+
+- name: Créer l’utilisateur SQL OCS
+  community.mysql.mysql_user:
+    name: "{{ ocs_db_user }}"
+    password: "{{ ocs_db_password }}"
+    host: "localhost"
+    priv: "{{ ocs_db_name }}.*:ALL"
+    state: present
