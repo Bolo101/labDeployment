@@ -1,0 +1,17 @@
+---
+- name: Déployer le VirtualHost GLPI
+  ansible.builtin.template:
+    src: glpi-vhost.conf.j2
+    dest: "/etc/apache2/sites-available/{{ glpi_server_name }}.conf"
+    mode: "0644"
+  notify: Restart Apache
+
+- name: Activer le site GLPI
+  ansible.builtin.command: "a2ensite {{ glpi_server_name }}.conf"
+  changed_when: true
+  notify: Restart Apache
+
+- name: Désactiver le site par défaut
+  ansible.builtin.command: a2dissite 000-default.conf
+  changed_when: true
+  notify: Restart Apache
