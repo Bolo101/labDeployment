@@ -33,3 +33,57 @@
     owner: www-data
     group: www-data
     mode: "0755"
+
+- name: Créer les répertoires externes GLPI (config, var, logs)
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "0755"
+  loop:
+    - "{{ glpi_config_dir }}"
+    - "{{ glpi_var_dir }}"
+    - "{{ glpi_log_dir }}"
+
+- name: Déplacer le répertoire config vers /etc/glpi
+  ansible.builtin.command: >
+    mv {{ glpi_root_dir }}/config {{ glpi_config_dir }}
+  args:
+    creates: "{{ glpi_config_dir }}/config"
+  notify: Restart Apache
+
+- name: Déplacer le répertoire files vers /var/lib/glpi
+  ansible.builtin.command: >
+    mv {{ glpi_root_dir }}/files {{ glpi_var_dir }}
+  args:
+    creates: "{{ glpi_var_dir }}/files"
+
+- name: Ajuster les droits sur les répertoires externes GLPI
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    recurse: true
+    owner: www-data
+    group: www-data
+    mode: "0755"
+  loop:
+    - "{{ glpi_config_dir }}"
+    - "{{ glpi_var_dir }}"
+    - "{{ glpi_log_dir }}"
+
+- name: Créer le fichier downstream.php pour déclarer les chemins
+  ansible.builtin.copy:
+    dest: "{{ glpi_root_dir }}/inc/downstream.php"
+    owner: www-data
+    group: www-data
+    mode: "0644"
+    content: |
+      <?php
+      define('GLPI_CONFIG_DIR', '{{ glpi_config_dir }}/');
+      define('GLPI_VAR_DIR', '{{ glpi_var_dir }}/files');
+      define('GLPI_LOG_DIR', '{{ glpi_log_dir }}');
+
+      if (file_exists(GLPI_CONFIG_DIR . '/local_define.php')) {
+          require_once GLPI_CONFIG_DIR . '/local_define.php';
+      }
