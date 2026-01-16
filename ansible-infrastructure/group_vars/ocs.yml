@@ -2,4 +2,4 @@ ocs_db_name: "ocsdb"
 ocs_db_user: "ocs_adm"
 ocs_db_password: "StrongPassword123"
 
-ocs_server_url: "http://ocs.local/ocsreports"
+ocs_server_url: "http://localhost/ocsreports"
