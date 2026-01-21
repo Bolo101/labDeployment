@@ -23,6 +23,8 @@ tapirx_dir: "/opt/tapirx"
 tapirx_user: "tapirx"
 tapirx_binary: "/usr/local/bin/tapirx"
 tapirx_branch: "develop"
+tapirx_module: "github.com/virtalabs/tapirx@latest"
+
 
 mariadb_root_password: "StrongPassword123"
 
