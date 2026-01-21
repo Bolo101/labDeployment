@@ -25,3 +25,5 @@ tapirx_binary: "/usr/local/bin/tapirx"
 
 mariadb_root_password: "StrongPassword123"
 
+mariadb_admin_user: "ansible"
+mariadb_admin_password: "StrongPassword123"

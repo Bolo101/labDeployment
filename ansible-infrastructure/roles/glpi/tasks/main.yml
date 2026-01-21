@@ -2,6 +2,9 @@
 - name: Installer les paquets nécessaires à GLPI
   ansible.builtin.import_tasks: install_pkgs.yml
 
+- name: Créer/mettre à jour le compte admin MariaDB pour Ansible
+  ansible.builtin.import_tasks: db_admin.yml
+
 - name: Préparer la base de données GLPI
   ansible.builtin.import_tasks: db.yml
 

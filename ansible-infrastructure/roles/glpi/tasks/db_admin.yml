@@ -1,0 +1,16 @@
+---
+- name: Créer l'utilisateur admin MariaDB pour Ansible (si absent)
+  ansible.builtin.command: >
+    mysql -e "CREATE USER IF NOT EXISTS '{{ mariadb_admin_user }}'@'localhost'
+    IDENTIFIED BY '{{ mariadb_admin_password }}';"
+  args:
+    warn: false
+  become: true
+
+- name: Accorder les droits à l'admin MariaDB Ansible
+  ansible.builtin.command: >
+    mysql -e "GRANT ALL PRIVILEGES ON *.* TO '{{ mariadb_admin_user }}'@'localhost'
+    WITH GRANT OPTION; FLUSH PRIVILEGES;"
+  args:
+    warn: false
+  become: true
