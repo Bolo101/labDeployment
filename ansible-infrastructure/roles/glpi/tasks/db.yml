@@ -10,8 +10,8 @@
     state: present
     encoding: utf8mb4
     collation: utf8mb4_unicode_ci
-    login_user: root
-    login_password: "{{ mariadb_root_password }}"
+    login_user: "{{ mariadb_admin_user }}"
+    login_password: "{{ mariadb_admin_password }}"
     login_host: localhost
 
 - name: Créer l’utilisateur SQL GLPI
@@ -21,6 +21,7 @@
     host: "localhost"
     priv: "{{ glpi_db_name }}.*:ALL"
     state: present
-    login_user: root
-    login_password: "{{ mariadb_root_password }}"
+    login_user: "{{ mariadb_admin_user }}"
+    login_password: "{{ mariadb_admin_password }}"
     login_host: localhost
+
