@@ -14,7 +14,7 @@
 
 - name: Compiler TapirX
   ansible.builtin.command: >
-    go build -o {{ tapirx_binary }}
+    go build -o {{ tapirx_binary }} .
   args:
     chdir: "{{ tapirx_dir }}"
   environment:
