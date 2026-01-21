@@ -1,0 +1,9 @@
+- name: Daemon reload
+  ansible.builtin.command: systemctl daemon-reload
+  become: true
+
+- name: Restart tapirx
+  ansible.builtin.service:
+    name: tapirx
+    state: restarted
+  become: true
