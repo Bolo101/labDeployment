@@ -22,6 +22,7 @@ tapirx_repo: "https://github.com/virtalabs/tapirx.git"
 tapirx_dir: "/opt/tapirx"
 tapirx_user: "tapirx"
 tapirx_binary: "/usr/local/bin/tapirx"
+tapirx_branch: "develop"
 
 mariadb_root_password: "StrongPassword123"
 
