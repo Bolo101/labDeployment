@@ -10,6 +10,9 @@
     state: present
     encoding: utf8mb4
     collation: utf8mb4_unicode_ci
+    login_user: "{{ mariadb_admin_user }}"
+    login_password: "{{ mariadb_admin_password }}"
+    login_host: localhost
 
 - name: Créer l’utilisateur SQL OCS
   community.mysql.mysql_user:
@@ -18,3 +21,6 @@
     host: "localhost"
     priv: "{{ ocs_db_name }}.*:ALL"
     state: present
+    login_user: "{{ mariadb_admin_user }}"
+    login_password: "{{ mariadb_admin_password }}"
+    login_host: localhost

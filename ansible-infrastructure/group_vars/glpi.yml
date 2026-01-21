@@ -27,3 +27,7 @@ mariadb_root_password: "StrongPassword123"
 
 mariadb_admin_user: "ansible"
 mariadb_admin_password: "StrongPassword123"
+
+ocs_db_name: "ocsdb"
+ocs_db_user: "ocs_adm"
+ocs_db_password: "StrongPassword123"
