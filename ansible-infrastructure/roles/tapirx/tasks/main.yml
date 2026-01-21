@@ -5,21 +5,22 @@
     shell: /usr/sbin/nologin
     create_home: false
 
-- name: Cloner le dépôt TapirX
-  ansible.builtin.git:
-    repo: "{{ tapirx_repo }}"
-    dest: "{{ tapirx_dir }}"
-    version: "{{ tapirx_branch }}"
-    force: false
+- name: Installer build-essential et libpcap-dev (prérequis TapirX)
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - libpcap-dev
+    state: present
+    update_cache: yes
 
-- name: Compiler TapirX
+- name: Installer TapirX via go install
   ansible.builtin.command: >
-    go build -o {{ tapirx_binary }} .
-  args:
-    chdir: "{{ tapirx_dir }}"
+    go install {{ tapirx_module }}
   environment:
     GOPATH: "/root/go"
-  notify: Restart tapirx
+    GOBIN: "/usr/local/bin"
+    PATH: "/usr/local/go/bin:/usr/bin:/bin"
+  changed_when: true
 
 - name: Définir les permissions sur le binaire TapirX
   ansible.builtin.file:
