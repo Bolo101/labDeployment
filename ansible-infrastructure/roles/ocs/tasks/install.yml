@@ -1,14 +1,28 @@
 ---
-- name: Installer paquets OCS Inventory Server
+- name: Installer curl (prérequis)
   ansible.builtin.apt:
-    name:
-      - ocsinventory-server
-      - ocsinventory-reports
+    name: curl
     state: present
     update_cache: yes
 
-- name: S’assurer qu’Apache est démarré pour OCS
-  ansible.builtin.service:
-    name: apache2
-    state: started
-    enabled: true
+- name: Ajouter la clé GPG du dépôt OCS
+  ansible.builtin.get_url:
+    url: https://deb.ocsinventory-ng.org/pubkey.gpg
+    dest: /etc/apt/trusted.gpg.d/ocs-archive-keyring.asc
+    mode: "0644"
+
+- name: Ajouter le dépôt OCS Inventory
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/ocsinventory.list
+    mode: "0644"
+    content: |
+      deb [signed-by=/etc/apt/trusted.gpg.d/ocs-archive-keyring.asc] http://deb.ocsinventory-ng.org/debian/ trixie main
+
+- name: Mettre à jour l’index APT
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Installer OCS Inventory
+  ansible.builtin.apt:
+    name: ocsinventory
+    state: present
