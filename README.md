@@ -14,7 +14,7 @@ To make this configuration operative, the installation includes:
 - OCS server installation and configuration
 - TapirX installation
 
-What still needs to be done:
+What still needs to be done to complete deployment:
 
 - Manual OCS plugin install from GLPI marketplace
 - Manual GLPI-OCS connection once plugin is installed (need to set TRACE_DELETE = ON from OCS server before connecting the plugin)
