@@ -1,5 +1,7 @@
 # POC Infrastructure deployment
 
+## Purposes
+
 This repo aims to automate the deployment of our IoMT POC inventory through an Ansible playbook.
 
 The playbook provides basic installation required for GLPI, OCSInventoryNG and TapirX use.
@@ -18,3 +20,35 @@ What still needs to be done to complete deployment:
 
 - Manual OCS plugin install from GLPI marketplace
 - Manual GLPI-OCS connection once plugin is installed (need to set TRACE_DELETE = ON from OCS server before connecting the plugin)
+
+## Playbook use
+
+- Create **Deployer** user on target machine:
+```bash
+sudo adduser deployer
+sudo usermod -aG deployer sudo
+```
+
+- Add passwordless sudo to deployer:
+```bash
+echo "deployer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/deployer
+chmod 440 /etc/sudoers.d/deployer
+```
+
+
+- Clone this repo using git clone on Ansible master:
+```bash
+git clone https://github.com/Bolo101/labDeployment.git
+```
+
+- Get in the Ansible project:
+```bash
+cd labDeployment/ansible-infrastructure
+```
+
+- Change target IP in inventory.ini based on you target IP address
+
+- Run playbook:
+```bash
+ansible-playbook -i inventory.ini playbook.yml
+```
