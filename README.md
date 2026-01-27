@@ -43,7 +43,7 @@ git clone https://github.com/Bolo101/labDeployment.git
 
 - Get in the Ansible project:
 ```bash
-cd labDeployment/ansible-infrastructure
+cd labDeployment/
 ```
 
 - Change target IP in inventory.ini based on you target IP address
