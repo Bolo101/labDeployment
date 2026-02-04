@@ -1,5 +1,5 @@
 # POC Infrastructure deployment
-
+**DISCLAIMER : DO NOT USE THIS PLAYBOOK IN PROD AS IT IS. POC ONLY USAGE**
 ## Purposes
 
 This repo aims to automate the deployment of our IoMT POC inventory through an Ansible playbook.
